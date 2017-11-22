@@ -1,0 +1,59 @@
+﻿@using MvcPaging
+@model DeviceBase.Areas.Administration.ViewModels.LocationViewModel
+
+@{
+    ViewBag.Title = "Площадки";
+    Layout = "~/Areas/Administration/Views/_AdministrationLayout.cshtml";
+}
+<div class="device-info-bkgrd">
+    <input id="addlocation" type="button" class="device-buttons-add" value="Добавить площадку"/>
+    <input id="delete" type="button" class="device-buttons" value="Удалить"/>
+
+    <table class="grid-style">
+        <thead class="grid-header">
+        <tr>
+            <td width="50px"></td>
+            <td>Площадка</td>
+
+
+        </tr>
+        </thead>
+        <tbody class="grid-row">
+        @if (Model != null)
+        {
+            foreach (var location in Model.Locations)
+            {
+                <tr>
+                    <td><input type="checkbox" id="chkdel" value="@location.LocationId"/> </td>
+                    <td>@location.LocationName</td>
+
+                </tr>
+
+
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    @if (Model != null)
+    {
+        <div style="margin: 16px 0 0 10px; height: 40px;">
+            @Html.Pager(Model.Locations.PageSize, Model.Locations.PageNumber, Model.Locations.TotalItemCount).Options(o => o.DisplayTemplate("MetroPager").MaxNrOfPages(10).AlwaysAddFirstPageNumber())
+        </div>
+    }
+
+</div>
+@Html.Partial("LocationModalPartial", Model.Location)
+@Styles.Render("~/Content/Modal/Location");
+@Scripts.Render("~/bundles/Location")

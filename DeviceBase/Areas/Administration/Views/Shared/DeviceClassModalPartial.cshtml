@@ -1,0 +1,28 @@
+﻿@model DeviceBase.Models.DeviceClass
+
+<div id="modaldeviceclass" style="display: none">
+ @using (Html.BeginForm("CreateDeviceClass", "DeviceClasses", FormMethod.Post, new { id = "deviceclassform" }))
+ {
+
+     <div class="deviceclass-modal-background">
+         <div class="deviceclass-modal-header">
+             <div class="header-text">Класс устройства</div>
+         </div>
+         <div id="statusbar" style="display: none; font-size: 12px; text-align:center">
+
+         </div>
+         @Html.HiddenFor(x=>x.Id,new{id="deviceclassid"})
+         <div class="deviceclass-modal-inputblock">
+             <div class="deviceclass-modal-label">Класс</div> @Html.TextBoxFor(x => x.DeviceClassName, new {@class = "deviceclass-modal-input", id = "deviceclassname"}) @Html.ValidationMessageFor(x => x.DeviceClassName)
+         </div>
+         <div class="deviceclass-modal-inputblock">
+             <div class="deviceclass-modal-label">Подразделение</div> <div class="deviceclass-modal-context-select">@Html.DropDownListFor(x => x.Department, new List<SelectListItem> { new SelectListItem { Value = "ИТ", Text = "ИТ" }, new SelectListItem { Value = "АСПП", Text = "АСПП" }, new SelectListItem { Value = "ПА", Text = "ПА" } }, "Выберите отдел...")@Html.ValidationMessageFor(x => x.Department)</div>
+         </div>
+         <div style="clear: both"></div>
+         <div class="deviceclass-modal-control">
+             <button type="submit" class="deviceclass-modal-button button-save">Сохранить</button>
+             <button type="button" class="deviceclass-modal-button button-cancel">Отменить</button>
+         </div>
+     </div>
+ }
+</div>

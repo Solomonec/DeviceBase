@@ -1,0 +1,73 @@
+﻿@using MvcPaging
+@model DeviceBase.Areas.Administration.ViewModels.DeviceTypeViewModel
+@{
+    ViewBag.Title = "Типы устройств";
+    Layout = "~/Areas/Administration/Views/_AdministrationLayout.cshtml";
+}
+<div class="device-info-bkgrd">
+    <input id="adddevicetype" class="device-buttons-add" type="button" value="Добавить тип"/>
+    <input id="delete" type="button" class="device-buttons" value="Удалить"/>
+
+    <table class="grid-style">
+        <thead class="grid-header">
+        <tr>
+            <td width="50px"></td>
+            <td width="150px">Класс</td>
+            <td>Тип</td>
+            <td>Подтип</td>
+            <td width="50px"></td>
+        </tr>
+        </thead>
+        <tbody class="grid-row">
+        @if (Model != null)
+        {
+            foreach (var devicetype in Model.DeviceTypes)
+            {
+                <tr>
+                    <td><input type="checkbox" id="chkdel" value="@devicetype.Id"/> </td>
+                    <td>@devicetype.DeviceClassName</td>
+                    <td>@devicetype.DeviceTypeName</td>
+                    <td>@devicetype.DeviceSubTypeName</td>
+                    <td><span class="editicon" data-devicetypeid="@devicetype.Id"></span></td>
+                </tr>
+
+
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    @if (Model != null)
+    {
+        <div style="margin: 16px 0 0 10px; height: 40px;">
+            @Html.Pager(Model.DeviceTypes.PageSize, Model.DeviceTypes.PageNumber, Model.DeviceTypes.TotalItemCount).Options(o => o.DisplayTemplate("MetroPager").MaxNrOfPages(10).AlwaysAddFirstPageNumber())
+        </div>
+    }
+
+
+</div>
+
+@Html.Partial("DeviceTypeModalPartial", Model.DeviceType)
+@Styles.Render("~/Content/Modal/DeviceType");
+@Scripts.Render("~/bundles/DeviceType")

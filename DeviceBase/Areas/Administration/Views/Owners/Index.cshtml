@@ -1,0 +1,89 @@
+﻿@using MvcPaging
+@model DeviceBase.Areas.Administration.ViewModels.OwnerViewModel
+
+@{
+    ViewBag.Title = "Ответственные";
+    Layout = "~/Areas/Administration/Views/_AdministrationLayout.cshtml";
+}
+<div class="device-info-bkgrd">
+    <input id="addowner" class="device-buttons-add" type="button" value="Добавить ответственного"/>
+    <input id="delete" type="button" class="device-buttons" value="Удалить"/>
+
+    <table class="grid-style">
+        <thead class="grid-header">
+        <tr>
+            <td width="50px"></td>
+            <td>Имя</td>
+            <td>ФИО</td>
+            <td>Должность</td>
+            <td>Служба</td>
+            <td>Отдел</td>
+            <td>Кабинет</td>
+            <td>Тел</td>
+            <td width="50px"></td>
+
+
+        </tr>
+        </thead>
+        <tbody class="grid-row">
+        @if (Model != null)
+        {
+            foreach (var owner in Model.Owners)
+            {
+                <tr>
+                    <td><input type="checkbox" id="chkdel" value="@owner.OwnerId"/> </td>
+                    <td>@owner.Name</td>
+                    <td>@owner.FullName</td>
+                    <td>@owner.Job</td>
+                    <td>@owner.Slugba</td>
+                    <td>@owner.Department</td>
+                    <td>@owner.Room</td>
+                    <td>@owner.Tel</td>
+                    <td><span class="editicon" data-ownerid="@owner.OwnerId"></span></td>
+                </tr>
+
+
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    @if (Model != null || Model.Owners.TotalItemCount > 0)
+    {
+        <div style="margin: 16px 0 0 10px; height: 40px;">
+            @Html.Pager(Model.Owners.PageSize, Model.Owners.PageNumber, Model.Owners.TotalItemCount).Options(o => o.DisplayTemplate("MetroPager").MaxNrOfPages(10).AlwaysAddFirstPageNumber())
+        </div>
+    }
+
+</div>
+
+@Html.Partial("OwnerModalPartial",Model.Owner)
+@Styles.Render("~/Content/Modal/Owner");
+@Scripts.Render("~/bundles/Owner")

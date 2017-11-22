@@ -1,0 +1,45 @@
+﻿@model DeviceBase.Models.Owner
+
+<div id="modalowner" style="display: none">
+  @using (Html.BeginForm("CreateOwner","Owners", FormMethod.Post, new{ id = "ownerform"}))
+  {
+      <div class="owner-modal-background">
+          <div class="owner-modal-header">
+              <div class="header-text">Ответственный</div>
+          </div>
+          <div id="statusbar" style="display: none; font-size: 12px; text-align:center">
+
+          </div>
+          @Html.HiddenFor(x=>x.OwnerId, new{id="ownerid"});
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Имя (англ.)</div> @Html.TextBoxFor(x => x.Name, new { @class = "owner-modal-input" , id="ownername" }) @Html.ValidationMessageFor(x => x.Name)
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">ФИО</div> @Html.TextBoxFor(x => x.FullName, new { @class = "owner-modal-input", id = "ownerfullname" }) @Html.ValidationMessageFor(x => x.FullName)
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Должность</div> @Html.TextBoxFor(x => x.Job, new { @class = "owner-modal-input", id = "ownerjob" }) @Html.ValidationMessageFor(x => x.Job)
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Служба</div> @Html.TextBoxFor(x => x.Slugba, new { @class = "owner-modal-input", id = "ownerslugba" }) @Html.ValidationMessageFor(x => x.Slugba)
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Отдел</div> @Html.TextBoxFor(x => x.Department, new { @class = "owner-modal-input", id = "ownerdepartment" }) @Html.ValidationMessageFor(x => x.Department)
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Адрес</div> @Html.TextBoxFor(x => x.Address, new { @class = "owner-modal-input", id = "owneraddress" })
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Комната</div> @Html.TextBoxFor(x => x.Room, new {@class = "owner-modal-input", id = "ownername"})
+          </div>
+          <div class="owner-modal-inputblock">
+              <div class="owner-modal-label">Тел.</div> @Html.TextBoxFor(x => x.Tel, new { @class = "owner-modal-input", id = "ownertel" })
+          </div>
+          <div style="clear: both"></div>
+          <div class="owner-modal-control">
+              <button type="submit" class="owner-modal-button button-save">Сохранить</button>
+              <button type="button" class="owner-modal-button button-cancel">Отменить</button>
+          </div>
+      </div>
+  }
+</div>

@@ -1,0 +1,113 @@
+﻿@using MvcPaging
+@using System.Web.Helpers
+@model  IPagedList<DeviceBase.Models.AsppDevice>
+
+
+<div>
+    @if (User.IsInRole("Administrator") || User.IsInRole("DeviceEditor"))
+    {
+        <div style="float: left">
+            <input type="button" id="adddevice" class="menage-button-add" value="Добавить устройство АСПП"/>
+        </div>
+
+        <div style="float: left">
+            <input type="button" id="delete" class="menage-buttons" value="Удалить"/>
+        </div>
+    }
+    
+    <div style="float: left">
+        <input type="button" id="export" class="menage-buttons" value="Экспорт"/>
+    </div>
+
+    <div style="float: left">
+        <input type="button" id="statistics" class="menage-buttons" value="Статистика" />
+    </div>
+
+
+    <div style="float: right">
+        @Html.Raw(Html.ActionLink("Найти", "SearchAsppDevices", "Home", new {searchvalue = ""}, new {@class = "manage-search-button", id = "search"}).ToHtmlString().Replace("Найти", "<img src=\"/Content/Img/Main/search.png\"/>"))
+
+    </div>
+
+    <div style="float: right">
+        <input type="text" value="" class="menage-search-field" />
+    </div>
+
+</div>
+
+<div id="grid" style="clear: both">
+
+    <table class="grid-style">
+        <thead class="grid-header">
+            <tr>
+                <td></td>
+                <td>Инв.№</td>
+                <td>Модель</td>
+                <td>Серийный номер</td>
+                <td>Ответственный</td>
+                <td>Отдел</td>
+                <td>Служба</td>
+                <td>Тел</td>
+                <td>Площадка</td>
+                <td></td>
+
+            </tr>
+        </thead>
+        <tbody class="grid-row">
+            @if (Model != null)
+            {
+                foreach (var device in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" id="chkdel" value="@device.DevAsppGenId" /> </td>
+                        <td>@device.DevInvNum</td>
+                        <td>@device.DeviceModel</td>
+                        <td>@device.SerialNumber</td>
+                        <td>@device.DeviceOwner.FullName</td>
+                        <td>@device.DeviceOwner.Department</td>
+                        <td>@device.DeviceOwner.Slugba</td>
+                        <td>@device.DeviceOwner.Tel</td>
+                        <td>@device.Location</td>
+                        <td>@Html.Raw(Html.ActionLink("Подробнее", "Index", "AsppDevice", new { deviceid = @device.DevAsppGenId }, new { target = "_blank" }).ToHtmlString().Replace("Подробнее", "<span class=\"editicon\"></span>"))</td>
+                     </tr>
+
+
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td></td>
+                    <td>фів</td>
+                    <td>фвіф</td>
+                    <td>фів</td>
+                    <td>впарпа</td>
+                    <td>віаів</td>
+                    <td>іва</td>
+                    <td>іва</td>
+                </tr>
+                <tr>
+                    <td>віа</td>
+                    <td>віа</td>
+                    <td>іва</td>
+                    <td>іва</td>
+                    <td>іаіва</td>
+                    <td>івааві</td>
+                    <td>іва</td>
+                    <td>іваві</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @if (Model != null)
+    {
+        <div style="height: 40px;">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o.RouteValues(new { devicetype = ViewBag.devicetype, searchvalue = ViewBag.searchvalue }).DisplayTemplate("MetroPager").MaxNrOfPages(10).AlwaysAddFirstPageNumber())
+        </div>
+    }
+
+    </div>
+@Scripts.Render("~/bundles/AsppDeviceList")

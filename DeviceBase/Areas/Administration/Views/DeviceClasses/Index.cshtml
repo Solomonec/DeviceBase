@@ -1,0 +1,67 @@
+﻿@using MvcPaging
+@model DeviceBase.Areas.Administration.ViewModels.DeviceClassViewModel
+@{
+    ViewBag.Title = "Классы устройств";
+    Layout = "~/Areas/Administration/Views/_AdministrationLayout.cshtml";
+}
+<div class="device-info-bkgrd">
+    <input id="adddeviceclass" type="button" class="device-buttons-add" value="Добавить класс"/>
+    <input id="delete" type="button" class="device-buttons" value="Удалить"/>
+
+    <table class="grid-style">
+        <thead class="grid-header">
+        <tr>
+            <td width="50px"></td>
+            <td>Класс</td>
+            <td>Подразделение</td>
+            <td width="50px"></td>
+        </tr>
+        </thead>
+        <tbody class="grid-row">
+        @if (Model != null)
+        {
+            foreach (var deviceclass in Model.DeviceClasses)
+            {
+                <tr>
+                    <td><input type="checkbox" id="chkdel" value="@deviceclass.Id"/> </td>
+                    <td>@deviceclass.DeviceClassName</td>
+                    <td>@deviceclass.Department</td>
+                   
+                </tr>
+
+
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    @if (Model != null)
+    {
+        <div style="margin: 16px 0 0 10px; height: 40px;">
+            @Html.Pager(Model.DeviceClasses.PageSize, Model.DeviceClasses.PageNumber, Model.DeviceClasses.TotalItemCount).Options(o => o.DisplayTemplate("MetroPager").MaxNrOfPages(10).AlwaysAddFirstPageNumber())
+        </div>
+    }
+
+</div>
+@Html.Partial("DeviceClassModalPartial", Model.DeviceClass)
+@Styles.Render("~/Content/Modal/DeviceClass");
+@Scripts.Render("~/bundles/DeviceClass")

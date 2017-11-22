@@ -1,0 +1,170 @@
+﻿@model DeviceBase.Models.RegisterModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Регистрация пользователя</title>
+    @Styles.Render("~/Content/Manage")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+</head>
+
+
+<body>
+    <div class="user-head-panel">
+        @Html.Action("UserProfile", "Users")
+    </div>
+        <div>
+            <div class="logo"></div>
+        </div>
+       
+
+            <div class="reg-user-info-bkgrd">
+                <div class="reg-user-header">
+                    <div class="reg-user-header-text">Новый пользователь</div>
+                </div>
+          @using (Html.BeginForm("Registration", "Users", FormMethod.Post))
+          {
+            @Html.AntiForgeryToken()
+              <div class="section-bar">
+                  <label class="section-lable-text">Идентификация пользователя</label>
+              </div>
+              <div class="reg-user-info-box">
+                  <div style="float: left;">
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Логин</label>
+                      </div>
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Имя пользователя</label>
+                      </div>
+
+                  </div>
+                  <div style="float: left;">
+                      <div class="reg-user-input-correction">
+                         
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.TextBoxFor(x => x.UserName, new {@class = "reg-user-sections-input"})
+                          @Html.ValidationMessageFor(x => x.UserName)
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.TextBoxFor(x => x.FullName, new { @class = "reg-user-sections-input" })
+                          @Html.ValidationMessageFor(x => x.FullName)
+                      </div>
+
+                  </div>
+
+
+              </div>
+              <div class="section-bar">
+                  <label class="section-lable-text">Укажите пароль</label>
+              </div>
+              <div class="reg-user-info-box">
+                  <div style="float: left;">
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Пароль</label>
+                      </div>
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Подтверждение</label>
+                      </div>
+
+                  </div>
+                  <div style="float: left;">
+                      <div class="reg-user-input-correction">
+
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.PasswordFor(x => x.Password, new { @class = "reg-user-sections-input" })
+                          @Html.ValidationMessageFor(x => x.Password)
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "reg-user-sections-input" })
+                          @Html.ValidationMessageFor(x => x.ConfirmPassword)
+                      </div>
+
+                  </div>
+
+
+              </div>
+              <div class="section-bar">
+                  <label class="section-lable-text">Выберете роли</label>
+              </div>
+              <div class="reg-user-info-box">
+                  <div id="show">
+                      @for (int i = 0; i < Model.Roles.Count(); i++)
+                      {
+                          <div class="checkbox-position">
+                              @Html.CheckBoxFor(model => model.Roles[i].Selected, new { id = "Roles_" + i + "__RoleName" })
+                              @Html.LabelFor(model => model.Roles[i].RoleName, Model.Roles[i].RoleName)
+                              @Html.HiddenFor(modle => Model.Roles[i].RoleName)
+                          </div>
+                      }
+
+                  </div>
+              </div>
+
+
+
+              <div class="section-bar">
+                  <label class="section-lable-text">Дополнительная информация</label>
+              </div>
+              <div class="reg-user-info-box">
+                  <div style="float: left;">
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Служба</label>
+                      </div>
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Отдел</label>
+                      </div>
+                  </div>
+                  <div style="float: left;">
+                      <div class="reg-user-input-correction">
+
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.TextBoxFor(x => x.Slugba, new {@class = "reg-user-sections-input"})
+
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.TextBoxFor(x => x.Department, new {@class = "reg-user-sections-input"})
+                          @Html.ValidationMessageFor(x => x.Department)
+                      </div>
+
+                  </div>
+                  <div style="float: left; margin: 0 0 0 120px;">
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Должность</label>
+                      </div>
+                      <div class="reg-user-lable-correction">
+                          <label class="reg-user-label">Тел.</label>
+                      </div>
+
+                  </div>
+                  <div style="float: left;">
+                      <div class="reg-user-input-correction">
+                          @Html.TextBoxFor(x => x.Job, new { @class = "reg-user-sections-input" })
+
+                      </div>
+                      <div class="reg-user-input-correction">
+                          @Html.TextBoxFor(x => x.Tel, new {@class = "reg-user-sections-input"})
+
+                      </div>
+
+                  </div>
+
+
+              </div>
+              <div class="reg-user-footer">
+
+                  <input class="register-button" type="submit" value="Зарегистровать"/>
+
+              </div>
+          }
+            </div>
+
+</body>
+</html>

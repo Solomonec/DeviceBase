@@ -1,0 +1,77 @@
+﻿@using MetroSupport.Helpers
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>База оборудования</title>
+    @Styles.Render("~/Content/MainStyle")
+    @Styles.Render("~/Content/Export")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
+</head>
+<body>
+
+
+    <div class="user-head-panel">@Html.Action("UserProfile","Account")</div>
+    <div>
+        <div class="logo"></div>
+    </div>
+
+    <div style="clear: both; width: 1900px;">
+
+        <div class="menu-bkgrd">
+            <div class="menu-it-aspp-header">
+                IT
+            </div>
+            @Html.MenuLink("Все оборудование IT", "ItDevicesByType", "Home", "Все", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Системные блоки", "ItDevicesByType", "Home", "Системный блок", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Монитор", "ItDevicesByType", "Home", "Монитор", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Источноки бесперебойного питания", "ItDevicesByType", "Home", "ИБП", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Принтеры", "ItDevicesByType", "Home", "Принтер", "menu-point", "menu-point-selected")
+            @Html.MenuLink("МФУ", "ItDevicesByType", "Home", "МФУ", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Сканеры", "ItDevicesByType", "Home", "Сканер", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Копиры", "ItDevicesByType", "Home", "Копир", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Плоттеры", "ItDevicesByType", "Home", "Плоттер", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Серверы", "ItDevicesByType", "Home", "Сервер", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Свитчи", "ItDevicesByType", "Home", "Свитч", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Модемы", "ItDevicesByType", "Home", "Модем", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Измерители давления и пульса", "ItDevicesByType", "Home", "ИДИП", "menu-point", "menu-point-selected")
+
+            <div class="menu-it-aspp-header">АСПП</div>
+
+            @Html.MenuLink("Все оборудование АСПП", "AsppDevicesByType", "Home", "Все", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Монитор", "AsppDevicesByType", "Home", "Монитор", "menu-point", "menu-point-selected")
+            @Html.MenuLink("ДБЖ", "AsppDevicesByType", "Home", "ДБЖ", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Принтеры", "AsppDevicesByType", "Home", "Принтер", "menu-point", "menu-point-selected")
+            @Html.MenuLink("АДБК", "AsppDevicesByType", "Home", "АДБК", "menu-point", "menu-point-selected")
+            @Html.MenuLink("АРМК", "AsppDevicesByType", "Home", "АРМ-К", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Главный модуль", "AsppDevicesByType", "Home", "Главный модуль", "menu-point", "menu-point-selected")
+            @Html.MenuLink("ПЕОМ", "AsppDevicesByType", "Home", "ПЕОМ", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Регистратор с индикатором", "AsppDevicesByType", "Home", "Регистратор с индикатором", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Сервер вестибюля", "AsppDevicesByType", "Home", "Сервер вестибюля", "menu-point", "menu-point-selected")
+
+            <div class="menu-it-aspp-header">ПА</div>
+
+            @Html.MenuLink("Все оборудование ПА", "PaDevicesByType", "Home", "Все", "menu-point", "menu-point-selected")
+            @Html.MenuLink("АКП", "PaDevicesByType", "Home", "АКП", "menu-point", "menu-point-selected")
+            @Html.MenuLink("АВЖ", "PaDevicesByType", "Home", "АВЖ", "menu-point", "menu-point-selected")
+            @Html.MenuLink("ГЛМ", "PaDevicesByType", "Home", "ГЛМ", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Дефектоскоп", "PaDevicesByType", "Home", "Дефектоскоп", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Льготник", "PaDevicesByType", "Home", "Льготник", "menu-point", "menu-point-selected")
+            @Html.MenuLink("ПКА", "PaDevicesByType", "Home", "ПКА", "menu-point", "menu-point-selected")
+            @Html.MenuLink("ПКП", "PaDevicesByType", "Home", "ПКП", "menu-point", "menu-point-selected")
+
+        </div>
+
+        <div class="menag-bkgrd">
+                @RenderBody()
+           
+        </div>
+       @Html.Partial("Modal/ExportModalPartial")
+        @Scripts.Render("~/bundles/Export")
+    </div>
+
+</body>
+</html>

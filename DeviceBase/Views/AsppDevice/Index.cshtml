@@ -1,0 +1,347 @@
+﻿@using MetroSupport.Commons
+@model  DeviceBase.ViewModels.AsppDeviceViewModel
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@Model.Device.DevInvNum - @Model.Device.DeviceType</title>
+
+    @Styles.Render("~/Content/DeviceStyle")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+</head>
+<body>
+
+
+    <div class="user-head-panel">
+        @Html.Action("UserProfile", "Account")
+    </div>
+    <div class="logo"></div>
+
+    <div class="background">
+        <div style="clear: both; z-index:1">
+            <ul id="tabs">
+                <li><a href="#" name="tab1">Устройство</a></li>
+                <li><a href="#" name="tab2">История</a></li>
+
+            </ul>
+            <div id="content">
+                <div id="tab1">
+                    @using (Html.BeginForm("Index", "AsppDevice", FormMethod.Post))
+                    {
+                        <div class="device-info-bkgrd">
+                     @if (User.IsInRole("Administrator") || User.IsInRole("DeviceEditor"))
+                     {
+                         <div>
+                             <input type="submit" class="device-buttons" name="save" value="Сохранить"/>
+                         </div>
+                     }
+                            <div class="section-bar">
+                                <label class="section-lable-text">Устройство</label>
+                            </div>
+                            <div class="device-info-box">
+                                <div style="float: left;">
+                                    <div class="device-lable-correction">
+                                        <label class="device-label">Тип</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="device-label">Инв. №</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="device-label">Инв. бух. №</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="device-label">Серийный №</label>
+                                    </div>
+                                </div>
+                                <div style="float: left;">
+                                    <div class="device-input-correction">
+                                        @Html.HiddenFor(d => d.Device.DevAsppGenId, new {value=Model.Device.DevAsppGenId})
+                                    </div>
+                                    <div class="device-input-correction">
+                                       @if (Model.Device.DeviceType == null)
+                                       {
+                                           <div class="device-select"> @Html.DropDownListFor(d => d.Device.DeviceType, new SelectList(new[] {""}), new {id = "devicetypelist"})</div>
+                                       }
+                                       else
+                                       {
+                                        <div class="device-select"> @Html.DropDownListFor(d => d.Device.DeviceType, Model.DeviceType, new { id = "devicetypelist" })</div>
+                                       }
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DevInvNum, new { @class = "device-sections-input" }) @Html.ValidationMessageFor(x => x.Device.DevInvNum)
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DevBuhInvNumber, new { @class = "device-sections-input" })
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.SerialNumber, new { @class = "device-sections-input" })
+                                    </div>
+                                </div>
+                                <div style="float: left;">
+
+                                    <div style="float: left; margin: 0px 0px 0px 100px;">
+                                        <div class="device-lable-correction">
+                                            <label class="device-label">Класс</label>
+                                        </div>
+                                        <div class="device-lable-correction">
+                                            <label class="device-label">Модель</label>
+                                        </div>
+                                        <div class="device-lable-correction">
+                                            <label class="device-label">Ввод в экспл.</label>
+                                        </div>
+
+                                    </div>
+                                    <div style="float: left;">
+                                        <div class="device-input-correction">
+                                            <div class="device-select"> @Html.DropDownListFor(d => d.Device.DeviceClass, Model.DeviceClass, "Выберите класс..." , new { id = "deviceclasslist" }) </div>
+                                        </div>
+                                        <div class="device-input-correction">
+                                            @Html.TextBoxFor(d => d.Device.DeviceModel, new { @class = "device-sections-input" })
+                                        </div>
+                                        <div class="device-input-correction">
+                                            @Html.TextBoxFor(d => d.Device.DateInWork, new { @class = "device-sections-input", id = "datepicker" })
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div style="float: left;">
+
+                                    <div style="float: left; margin: 0px 0px 0px 100px;">
+                                        <div class="device-lable-correction">
+                                            <label class="device-label">Комментарий</label>
+                                        </div>
+                                    </div>
+                                    <div style="float: left;">
+                                        <div class="device-input-correction">
+                                            @Html.TextAreaFor(d => d.Device.Comment, new { @class = "device-sections-input-comment" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="section-bar">
+                                <label class="section-lable-text">Ответственный</label>
+                            </div>
+                            <div class="device-info-owner-stage">
+                                <div style="float: left;">
+                                    <div class="device-lable-correction">
+                                        <label class="owner-label">ФИО</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="owner-label">Должность</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="owner-label">Служба</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="owner-label">Отдел</label>
+                                    </div>
+                                </div>
+                                <div style="float: left;">
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.FullName, new { @class = "owner-sections-input", id = "fullname" })
+                                        @Html.ValidationMessageFor(x => x.Device.DeviceOwner.FullName)
+                                        <button type="button" class="person-button-search" id="btnpersonmodal">...</button>
+
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Job, new { @class = "owner-sections-input", id = "job" })
+                                        @Html.ValidationMessageFor(x => x.Device.DeviceOwner.Job)
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Slugba, new { @class = "owner-sections-input", id = "slugba" })
+                                        @Html.ValidationMessageFor(x => x.Device.DeviceOwner.Slugba)
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Department, new { @class = "owner-sections-input", id = "department" })
+                                        @Html.ValidationMessageFor(x => x.Device.DeviceOwner.Department)
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="section-bar">
+                                <label class="section-lable-text">Расположение</label>
+                            </div>
+                            <div class="device-info-owner-stage">
+
+                                <div style="float: left;">
+                                    <div class="device-lable-correction">
+                                        <label class="location-label">Телефон</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="location-label">Адрес</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="location-label">Этаж</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="location-label">Комната</label>
+                                    </div>
+                                </div>
+                                <div style="float: left;">
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Tel, new { @class = "location-sections-input", id = "tel" })
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Address, new { @class = "location-sections-input", id = "address" })
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Floor, new { @class = "location-sections-input", id = "floor" })
+                                    </div>
+                                    <div class="device-input-correction">
+                                        @Html.TextBoxFor(d => d.Device.DeviceOwner.Room, new { @class = "location-sections-input", id = "room" })
+                                    </div>
+                                </div>
+
+                                <div style="float: left;">
+
+                                    <div style="float: left; margin: 0px 0px 0px 120px;">
+                                        <div class="device-lable-correction">
+                                            <label class="location-label">Площадка</label>
+                                        </div>
+                                    </div>
+                                    <div style="float: left;">
+                                        <div class="device-input-correction">
+                                            <div class="device-select"> @Html.DropDownListFor(d => d.Device.Location, Model.Locations, "Выберите площадку...")</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                <div id="tab2">
+                    <div class="device-info-bkgrd">
+                        <div class="section-bar">
+                            <label class="section-lable-text">Устройство</label>
+                        </div>
+                        <div class="device-history-box">
+                            <div style="float: left;">
+                                <div class="device-lable-correction">
+                                    <label class="device-label">Дата создания</label>
+                                </div>
+                                <div class="device-lable-correction">
+                                    <label class="device-label">Кем создано</label>
+                                </div>
+                            </div>
+                            <div style="float: left;">
+                                <div class="device-input-correction">
+
+                                    @Html.TextBox("CreateDate", Dates.DateNullConversion(Model.Log.CreateDate), new { @class = "device-sections-input", @readonly = "readonly" })
+
+                                </div>
+                                <div class="device-input-correction">
+
+                                    @Html.TextBox("WhoCreate", Model.Log.WhoCreate, new { @class = "device-sections-input", @readonly = "readonly" })
+
+                                </div>
+                            </div>
+                            <div style="float: left;">
+
+                                <div style="float: left; margin: 0px 0px 0px 100px;">
+                                    <div class="device-lable-correction">
+                                        <label class="device-label">Дата изменения</label>
+                                    </div>
+                                    <div class="device-lable-correction">
+                                        <label class="device-label">Кем изменено</label>
+                                    </div>
+
+                                </div>
+                                <div style="float: left;">
+                                    <div class="device-input-correction">
+
+                                        @Html.TextBox("ChangeDate", Dates.DateNullConversion(Model.Log.ChangeDate), new { @class = "device-sections-input", @readonly = "readonly" })
+
+                                    </div>
+
+                                    <div class="device-input-correction">
+                                        @Html.TextBox("WhoChange", Model.Log.WhoChange, new { @class = "device-sections-input", @readonly = "readonly" })
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="section-bar">
+                            <label class="section-lable-text">История вносимых изменений</label>
+                        </div>
+                        <div class="device-info-owner-stage">
+                            <div style="float: left;">
+                                <div class="device-lable-correction">
+                                    <label class="device-label"> </label>
+                                </div>
+                            </div>
+                            <div style="float: left;">
+                                <div class="device-input-correction">
+                                    <div class="device-log-output">
+                                        @if (Model.Log.LogTextCollection != null)
+                                        {
+                                            foreach (string logitem in Model.Log.LogTextCollection)
+                                            {
+                                                @logitem <br>
+
+                                            }
+                                        }
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="modalperson" style="display: none">
+        <div class="person-background">
+            <div class="person-header">
+                <div class="person-header-text">Выбирите ответственного</div>
+            </div>
+            <div style="margin: 37px 0 0 15px;">
+                <input type="text" class="person-search-input" /><button class="person-search-button"><img src="/Content/Img/Device/modal/people.png" /></button>
+            </div>
+            <div style="clear: both"></div>
+            <div class="person-container">
+                <div class="person-box">
+                    <div class="person-item">
+                        <div class="person-item-tip"></div>
+                        <div class="person-item-text">Сбой в работе ПО</div>
+                    </div>
+                    <div class="person-item">
+                        <div class="person-item-tip"></div>
+                        <div class="person-item-text">Сбой в работе ПО</div>
+                    </div>
+                    <div class="person-item">
+                        <div class="person-item-tip"></div>
+                        <div class="person-item-text">Сбой в работе ПО</div>
+                    </div>
+                </div>
+            </div>
+            <div class="person-control">
+                <button type="button" class="person-button button-ok">Принять</button>
+                <button type="button" class="person-button button-cancel">Отмена</button>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/AsppDevice")
+    @Scripts.Render("~/bundles/Dialogs")
+</body>
+</html>
+

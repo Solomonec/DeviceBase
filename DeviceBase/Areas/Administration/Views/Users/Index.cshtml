@@ -1,0 +1,68 @@
+﻿@using MvcPaging
+@model IPagedList<DeviceBase.Models.UserProfile>
+
+@{
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Areas/Administration/Views/_AdministrationLayout.cshtml";
+}
+
+<div class="device-info-bkgrd">
+    @*<input id="newuser" type="button" class="device-buttons-add" value="Новый пользователь" />*@
+    @Html.ActionLink("Новый пользователь","Registration", null, new{@class="device-buttons-adduser"})
+    <table class="grid-style">
+        <thead class="grid-header">
+            <tr>
+               
+                <td>Логин</td>
+                <td>Имя пользователя</td>
+                <td>Должность</td>
+                <td>Отдел</td>
+                <td>Тел</td>
+                <td width="50px"></td>
+                <td width="50px"></td>
+
+            </tr>
+        </thead>
+        <tbody class="grid-row">
+            @if (Model != null)
+            {
+                foreach (var user in Model)
+                {
+                    <tr>
+                        
+                        <td>@user.UserName</td>
+                        <td>@user.FullName</td>
+                        <td>@user.Job</td>
+                        <td>@user.Department</td>
+                        <td>@user.Tel</td>
+                        <td>@Html.Raw(Html.ActionLink("Подробнее", "Manage", new { username = user.UserName }).ToHtmlString().Replace("Подробнее", "<span class=\"editicon\"></span>"))</td>
+                        <td>@Html.Raw(Html.ActionLink("Удалить", "DeleteUser", new { username = user.UserName }).ToHtmlString().Replace("Удалить", "<span class=\"deleteicon\"></span>"))</td>
+
+                        
+                    </tr>
+
+
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @if (Model != null)
+    {
+        <div style="margin: 16px 0 0 10px; height: 40px;">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o.DisplayTemplate("MetroPager").MaxNrOfPages(10).AlwaysAddFirstPageNumber())
+        </div>
+    }
+
+</div>

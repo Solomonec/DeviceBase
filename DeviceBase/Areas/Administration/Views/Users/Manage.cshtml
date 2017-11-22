@@ -1,0 +1,186 @@
+﻿@model DeviceBase.Models.ManageModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Профиль пользователя</title>
+    @Styles.Render("~/Content/Manage")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+</head>
+
+
+<body>
+
+    <div class="user-head-panel">
+        @Html.Action("UserProfile", "Users")
+    </div>
+    <div>
+        <div class="logo"></div>
+    </div>
+
+
+    <div class="reg-user-info-bkgrd">
+        <div class="reg-user-header">
+            <div class="reg-user-header-text">Профиль пользователя</div>
+        </div>
+        @using (Html.BeginForm("Manage", "Users", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="section-bar">
+                <label class="section-lable-text">Идентификация пользователя</label>
+            </div>
+            <div class="reg-user-info-box">
+                <div style="float: left;">
+                    <div class="reg-user-lable-correction">
+                        <label class="reg-user-label">Логин</label>
+                    </div>
+                    <div class="reg-user-lable-correction">
+                        <label class="reg-user-label">Имя пользователя</label>
+                    </div>
+
+                </div>
+                <div style="float: left;">
+                    <div class="reg-user-input-correction">
+                        @Html.HiddenFor(x => x.UserId)
+                    </div>
+                    <div class="reg-user-input-correction">
+                        @Html.TextBoxFor(x => x.UserName, new {@class = "reg-user-sections-input", @readonly = "readonly"})
+
+                    </div>
+                    <div class="reg-user-input-correction">
+                        @Html.TextBoxFor(x => x.FullName, new {@class = "reg-user-sections-input"})
+                        @Html.ValidationMessageFor(x => x.FullName)
+                    </div>
+
+                </div>
+                <div style="float: right;">
+
+                    <div class="reg-user-lable-correction">
+                        <div id="showactive">
+                            <div class="checkbox-position">
+                                @Html.CheckBoxFor(model => model.Active)
+                                @Html.LabelFor(model => model.Active)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="section-bar">
+                <label class="section-lable-text">Пароль</label>
+            </div>
+            <div class="reg-user-info-box">
+
+                <input id="changepassword" type="button" value="Смена пароля" class="change-password-button"/>
+
+            </div>
+            <div class="section-bar">
+                <label class="section-lable-text">Выберете роли</label>
+            </div>
+            <div class="reg-user-info-box">
+                <div id="show">
+                    @for (int i = 0; i < Model.Roles.Count(); i++)
+                    {
+                        <div class="checkbox-position">
+                            @Html.CheckBoxFor(model => model.Roles[i].Selected, new {id = "Roles_" + i + "__RoleName"})
+                            @Html.LabelFor(model => model.Roles[i].RoleName, Model.Roles[i].RoleName)
+                            @Html.HiddenFor(modle => Model.Roles[i].RoleName)
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+
+
+            <div class="section-bar">
+                <label class="section-lable-text">Дополнительная информация</label>
+            </div>
+            <div class="reg-user-info-box">
+                <div style="float: left;">
+                    <div class="reg-user-lable-correction">
+                        <label class="reg-user-label">Служба</label>
+                    </div>
+                    <div class="reg-user-lable-correction">
+                        <label class="reg-user-label">Отдел</label>
+                    </div>
+                </div>
+                <div style="float: left;">
+                    <div class="reg-user-input-correction">
+
+                    </div>
+                    <div class="reg-user-input-correction">
+                        @Html.TextBoxFor(x => x.Slugba, new {@class = "reg-user-sections-input"})
+
+                    </div>
+                    <div class="reg-user-input-correction">
+                        @Html.TextBoxFor(x => x.Department, new {@class = "reg-user-sections-input"})
+                        @Html.ValidationMessageFor(x => x.Department)
+                    </div>
+
+                </div>
+                <div style="float: left; margin: 0 0 0 120px;">
+                    <div class="reg-user-lable-correction">
+                        <label class="reg-user-label">Должность</label>
+                    </div>
+                    <div class="reg-user-lable-correction">
+                        <label class="reg-user-label">Тел.</label>
+                    </div>
+
+                </div>
+                <div style="float: left;">
+                    <div class="reg-user-input-correction">
+                        @Html.TextBoxFor(x => x.Job, new {@class = "reg-user-sections-input"})
+
+                    </div>
+                    <div class="reg-user-input-correction">
+                        @Html.TextBoxFor(x => x.Tel, new {@class = "reg-user-sections-input"})
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="reg-user-footer">
+
+                <input class="register-button" type="submit" value="Зарегистровать"/>
+
+            </div>
+        }
+    </div>
+
+
+<div id="modalchangepassword" style="display: none">
+    @using (Html.BeginForm("ChangePassword", "Users", FormMethod.Post, new {id = "changepasswordform"}))
+    {
+
+        <div class="changepassword-modal-background">
+            <div class="changepassword-modal-header">
+                <div class="header-text">Смена пароля</div>
+            </div>
+            <div id="statusbar" style="display: none; font-size: 12px; text-align: center">
+
+            </div>
+            @Html.Hidden("username", Model.UserName)
+            <div class="changepassword-modal-inputblock">
+                <div class="changepassword-modal-label">Новый пароль</div> @Html.Password("newpassword", null,new { @class = "changepassword-modal-input", id = "changepasswordname" })
+            </div>
+            <div style="clear: both"></div>
+            <div class="changepassword-modal-control">
+                <button type="submit" class="changepassword-modal-button button-save">Сменить</button>
+                <button type="button" class="changepassword-modal-button button-cancel">Отменить</button>
+            </div>
+        </div>
+    }
+</div>
+    @Styles.Render("~/Content/Modal/ChangePassword")
+    @Scripts.Render("~/bundles/ChangePassword")
+</body>
+</html>

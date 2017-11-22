@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Администрирование</title>
+    @Styles.Render("~/Content/Administration")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+</head>
+<body>
+
+<div class="user-head-panel">
+  @Html.Action("UserProfile", "Users")
+</div>
+    <div class="logo"></div>
+
+    <div style="margin-right: 13%; margin-left: 13%; ">
+        <div class="device-menu-point-bkgrd">
+            <ul class="main-menu-point">
+                <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
+                <li>@Html.ActionLink("Ответственные", "Index", "Owners")</li>
+                <li>@Html.ActionLink("Типы устройств", "Index", "DeviceTypes")</li>
+                <li>@Html.ActionLink("Классы устройств", "Index", "DeviceClasses")</li>
+                <li>@Html.ActionLink("Расположения", "Index", "Locations")</li>
+
+            </ul>
+        </div>
+
+        @RenderBody()
+
+    </div>
+   
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿@model DeviceBase.Models.UserProfile
+@if (Request.IsAuthenticated)
+{
+
+    <div style="float: right">
+
+        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+        {   
+            <div class="user-section-link-box"> <a href="/Home/ItDevices" class="user-text">Главная</a></div>
+            <div class="user-border-separator delimmit-light"></div>
+            <div class="user-border-separator delimmit-dark"></div>
+        }
+        @if (User.IsInRole("Administrator"))
+        {
+                 <div class="user-section-link-box"><a href="/Administration/Users" class="user-text">Администрирование</a>
+                 </div>
+       
+        <div class="user-border-separator delimmit-light"></div>
+        <div class="user-border-separator delimmit-dark"></div>
+        }
+        <img class="user-avatar">
+        <div class="user-text user-section-box">@Model.FullName</div>
+        <div class="user-border-separator delimmit-light"></div>
+        <div class="user-border-separator delimmit-dark"></div>
+        <div class="user-section-box user-text">@Model.Department</div>
+        <div class="user-border-separator delimmit-light"></div>
+        <div class="user-border-separator delimmit-dark"></div>
+        <div class="user-section-link-box"> <a href="/Account/LogOff" class="user-text">Выйти</a></div>
+
+    </div>
+    
+}

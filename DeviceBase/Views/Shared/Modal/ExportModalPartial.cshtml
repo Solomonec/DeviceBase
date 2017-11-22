@@ -1,0 +1,27 @@
+﻿<div id="modalexport" style="display: none">
+  @using (Html.BeginForm("Export", "Home", FormMethod.Post))
+  {
+      <div class="export-modal-background">
+          <div class="export-modal-header">
+              <div class="header-text">Экспорт устройств</div>
+          </div>
+          <div class="export-modal-inputblock">
+              <div class="export-modal-label">Класс</div>
+              <div class="export-modal-context-select">
+                 @Html.DropDownList("deviceclass", new SelectList(new[] {""}), new{id="deviceclasslist"});
+              </div>
+          </div>
+          <div class="export-modal-inputblock">
+              <div class="export-modal-label">Тип</div>
+              <div class="export-modal-context-select">
+                 @Html.DropDownList("devicetype", new SelectList(new[] { "" }), new{id="devicetypelist"});
+              </div>
+          </div>
+          <div style="clear: both"></div>
+          <div class="export-modal-control">
+              <button type="submit" class="export-modal-button button-save">ОК</button>
+              <button type="button" class="export-modal-button button-cancel">Отменить</button>
+          </div>
+      </div>
+  }
+</div>
