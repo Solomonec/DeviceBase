@@ -18,12 +18,12 @@ namespace DeviceBase.Code.Implement
     {
         private readonly DeviceContext _context;
 
-        [Inject]
-        public ILogRepository<PaDeviceLog> Palog { get; set; }
+       private ILogRepository<PaDeviceLog> Palog { get; set; }
 
        public PaDeviceRepository(DeviceContext context)
         {
             this._context = context;
+            Palog = new PaLogRepository(context);
         }
 
         public PaDevice GetDeviceById(string id)
@@ -113,10 +113,10 @@ namespace DeviceBase.Code.Implement
 
             if (device.DevPaGenId == Guid.Empty)
             {
+                device.PaDeviceLog = Palog.CreateLog(device.DevPaGenId, username);
                 _context.PaDevices.Add(device);
-                _context.SaveChanges();
-                _context.PaDeviceLogs.Add(Palog.CreateLog(device.DevPaGenId, username));
-                _context.SaveChanges();
+               _context.SaveChanges();
+                
 
             }
             else
@@ -144,10 +144,10 @@ namespace DeviceBase.Code.Implement
                     currentdevice.Comment = device.Comment;
 
                 }
+                 currentdevice.PaDeviceLog = Palog.ChangeLogStatment(device.DevPaGenId, username);
                 _context.Entry(currentdevice).State = EntityState.Modified;
                 _context.SaveChanges();
-                _context.Entry(Palog.ChangeLogStatment(device.DevPaGenId, username)).State = EntityState.Modified;
-                _context.SaveChanges();
+                
 
             }
 

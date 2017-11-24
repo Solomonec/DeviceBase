@@ -19,12 +19,12 @@ namespace DeviceBase.Code.Implement
     {
         private readonly DeviceContext _context;
 
-        [Inject]
-        public ILogRepository<ItDeviceLog> Itlog { get; set; }
+        private ILogRepository<ItDeviceLog> Itlog { get; set; }
         
         public ItDeviceRepository(DeviceContext context)
         {
            _context = context;
+            Itlog = new ItLogRepository(context);
           
         }
 
@@ -125,10 +125,10 @@ namespace DeviceBase.Code.Implement
             
             if (device.DevItGenId == Guid.Empty)
             {
+                 device.ItDeviceLog = Itlog.CreateLog(device.DevItGenId, username);
                 _context.ItDevices.Add(device);
                 _context.SaveChanges();
-                _context.ItDeviceLogs.Add(Itlog.CreateLog(device.DevItGenId, username));
-                _context.SaveChanges();
+                
                 return true;
             }
             else
@@ -155,9 +155,8 @@ namespace DeviceBase.Code.Implement
                     currentdevice.Location = device.Location;
                     currentdevice.Comment = device.Comment;
 
+                    currentdevice.ItDeviceLog = Itlog.ChangeLogStatment(device.DevItGenId, username);
                     _context.Entry(currentdevice).State = EntityState.Modified;
-                    _context.SaveChanges();
-                    _context.Entry(Itlog.ChangeLogStatment(device.DevItGenId, username)).State = EntityState.Modified;
                     _context.SaveChanges();
                     return true;
 

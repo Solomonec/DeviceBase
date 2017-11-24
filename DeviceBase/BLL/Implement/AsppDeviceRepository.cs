@@ -18,11 +18,12 @@ namespace DeviceBase.Code.Implement
 
     {
         private readonly DeviceContext _context;
-        [Inject]
-        public ILogRepository<AsppDeviceLog> AsppLog { get; set; }
+        
+        private ILogRepository<AsppDeviceLog> AsppLog { get; set; }
         public AsppDeviceRepository(DeviceContext context)
         {
             this._context = context;
+            AsppLog = new AsppLogRepository(context);
         }
 
         public AsppDevice GetDeviceById(string id)
@@ -116,9 +117,8 @@ namespace DeviceBase.Code.Implement
 
             if (device.DevAsppGenId == Guid.Empty)
             {
+                 device.AsppDeviceLog = AsppLog.CreateLog(device.DevAsppGenId, username);
                 _context.AsppDevices.Add(device);
-                _context.SaveChanges();
-                _context.AsppDeviceLogs.Add(AsppLog.CreateLog(device.DevAsppGenId, username));
                 _context.SaveChanges();
                 return true;
             }
@@ -146,10 +146,10 @@ namespace DeviceBase.Code.Implement
                     currentdevice.Location = device.Location;
                     currentdevice.Comment = device.Comment;
 
+                    currentdevice.AsppDeviceLog = AsppLog.ChangeLogStatment(device.DevAsppGenId, username);
                     _context.Entry(currentdevice).State = EntityState.Modified;
                     _context.SaveChanges();
-                    _context.Entry(AsppLog.ChangeLogStatment(device.DevAsppGenId, username)).State = EntityState.Modified;
-                    _context.SaveChanges();
+                   
                     return true;
                 }
                 return false;
