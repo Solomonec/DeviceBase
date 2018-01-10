@@ -7,6 +7,7 @@
     <title>База оборудования</title>
     @Styles.Render("~/Content/MainStyle")
     @Styles.Render("~/Content/Export")
+    @Styles.Render("~/Content/DeleteConfirm")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     
@@ -28,7 +29,7 @@
             @Html.MenuLink("Все оборудование IT", "ItDevicesByType", "Home", "Все", "menu-point", "menu-point-selected")
             @Html.MenuLink("Системные блоки", "ItDevicesByType", "Home", "Системный блок", "menu-point", "menu-point-selected")
             @Html.MenuLink("Монитор", "ItDevicesByType", "Home", "Монитор", "menu-point", "menu-point-selected")
-            @Html.MenuLink("Источноки бесперебойного питания", "ItDevicesByType", "Home", "ИБП", "menu-point", "menu-point-selected")
+            @Html.MenuLink("Источники бесперебойного питания", "ItDevicesByType", "Home", "ИБП", "menu-point", "menu-point-selected")
             @Html.MenuLink("Принтеры", "ItDevicesByType", "Home", "Принтер", "menu-point", "menu-point-selected")
             @Html.MenuLink("МФУ", "ItDevicesByType", "Home", "МФУ", "menu-point", "menu-point-selected")
             @Html.MenuLink("Сканеры", "ItDevicesByType", "Home", "Сканер", "menu-point", "menu-point-selected")
@@ -70,7 +71,10 @@
            
         </div>
        @Html.Partial("Modal/ExportModalPartial")
+        @Html.Partial("Modal/ConfirmationDeleteModal")
         @Scripts.Render("~/bundles/Export")
+        @Scripts.Render("~/bundles/ConfirmDelete")
+
     </div>
 
 </body>

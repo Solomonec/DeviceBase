@@ -215,9 +215,9 @@ namespace DeviceBase.Controllers
         }
 
 
-        public FileResult Export(string devicetype, string deviceclass)
+        public FileResult Export(string devicetype, string deviceclass, string location)
         {
-            List<FilterResultModel> resultdevices =_deviceBaseService.DataFilter.Filter(Convertion.GetEntry(deviceclass), deviceclass, devicetype, String.Empty, String.Empty).ToList();
+            List<FilterResultModel> resultdevices =_deviceBaseService.DataFilter.Filter(Convertion.GetEntry(deviceclass), deviceclass, devicetype, String.Empty, location).ToList();
             
             if (resultdevices.Count > 0)
             {

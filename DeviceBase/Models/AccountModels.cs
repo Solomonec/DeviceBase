@@ -57,11 +57,11 @@ namespace DeviceBase.Models
 
     public class LoginModel
     {
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Введите имя пользователя")]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
@@ -73,23 +73,23 @@ namespace DeviceBase.Models
     public class RegisterModel
     {
        
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Введите имя пользователя")]
         [StringLength(25, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 6)]
-        [Display(Name = "Имя пользователя")]
+        [Display(Name = "Имя пользователя ")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Введите пароль")]
         [StringLength(100, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Введите подтверждение пароля")]
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают")]
         public string ConfirmPassword { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Введите полное имя")]
         [Display(Name = "Полное имя")]
         public string FullName { get; set; }
         [Display(Name = "Должность")]

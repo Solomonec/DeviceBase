@@ -11,7 +11,7 @@ using MvcPaging;
 
 namespace DeviceBase.Areas.Administration.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+
     public class LocationsController : Controller
     {
          private readonly DeviceBaseService _deviceBaseService;
@@ -22,6 +22,7 @@ namespace DeviceBase.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index(int? page)
         {
             int currentpage = (int) (page.HasValue ? page - 1 : 0);
@@ -35,6 +36,7 @@ namespace DeviceBase.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult CreateLocation(Location location)
         {
             if(ModelState.IsValid)
@@ -51,6 +53,7 @@ namespace DeviceBase.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult DeleteLocations(string selectedIds)
         {
             if (String.IsNullOrWhiteSpace(selectedIds))
@@ -64,6 +67,19 @@ namespace DeviceBase.Areas.Administration.Controllers
                 return Json(false);
             }
             return Json(true);
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult GetLocations()
+        {
+            IQueryable<Location> locations = _deviceBaseService.LocationRepository.GetLocations();
+            if (locations == null)
+            {
+                return Json(null);
+            }
+            return Json(locations);
 
         }
 

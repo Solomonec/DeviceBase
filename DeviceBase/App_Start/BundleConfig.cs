@@ -51,6 +51,7 @@ namespace DeviceBase
 
             bundles.Add(new StyleBundle("~/Content/MainStyle").Include("~/Content/MainStyle.css"));
             bundles.Add(new StyleBundle("~/Content/Export").Include("~/Content/Modal/Export.css", "~/Content/jquery.modal.css"));
+            bundles.Add(new StyleBundle("~/Content/DeleteConfirm").Include("~/Content/Modal/DeleteConfirm.css"));
             bundles.Add(new StyleBundle("~/Content/Administration").Include("~/Content/Administration.css"));
 
             bundles.Add(new StyleBundle("~/Content/LoginStyle").Include("~/Content/LoginStyle.css"));

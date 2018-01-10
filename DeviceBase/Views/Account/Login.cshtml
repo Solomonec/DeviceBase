@@ -10,31 +10,30 @@
     <title>DeviceBase</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta charset="utf-8">
-
-    
-    <link href="~/Content/LoginStyle.css" rel="stylesheet" type="text/css">
+    @Styles.Render("~/Content/LoginStyle")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
 </head>
 <body>
-    <div class="loginbox">
-        <div class="logo">
+<div class="loginbox">
+    <div class="logo"></div>
+    @using (Html.BeginForm("Login","Account",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <div class="authbox">
+            <div style="float: none; margin-top: 40px; margin-left: 40px">
+                <div class="lbltext">Логин </div>
+                <div> @Html.TextBoxFor(m => m.UserName, new {@class = "loginfld"})</div>
+                <div class="lbltext">Пароль</div>
+                <div> @Html.PasswordFor(m => m.Password, new {@class = "paswfld"})</div>
+            </div>
+            <div style="float: left; margin: 40px 0px 0px 215px;">@Html.CheckBoxFor(m => m.RememberMe)<label class="lblremme">запомнить</label><input type="submit" value="Войти" class="entbtn"/>
+            </div>
+        </div>
+        @Html.ValidationSummary();
 
-        </div>
-@using (Html.BeginForm("Login","Account",FormMethod.Post)) {
-    @Html.AntiForgeryToken()
-    <div class="authbox">
-        <div style="float: none; margin-top: 40px; margin-left: 40px">
-            <div class="lbltext">Логин </div>
-            <div> @Html.TextBoxFor(m => m.UserName, new {@class = "loginfld"}) @Html.ValidationMessageFor(x=>x.UserName)</div>
-            <div class="lbltext">Пароль</div>
-            <div> @Html.PasswordFor(m => m.Password, new {@class = "paswfld"}) @Html.ValidationMessageFor(x => x.Password) </div>
-        </div>
-        <div style="float: left; margin: 40px 0px 0px 215px;">@Html.CheckBoxFor(m => m.RememberMe)<label class="lblremme">запомнить</label><input type="submit" value="Войти" class="entbtn"/>
-        </div>
-    </div>
-    
+    }
+</div>
 
-   }
-    </div>
 </body>
 </html>
 

@@ -18,19 +18,43 @@ $(document).ready(function () {
        $("#search").attr('href', ref + "?searchvalue=" + searchstr);
     });
 
-   
-    $("#delete").live("click", function (event) {
+
+    $("#delete").live("click",function(event) {
+        
+            var deleteDevices = new DeleteDevices();
+            deleteDevices.DeleteConfirmation();
+            deleteDevices.InitYes();
+            deleteDevices.InitNo();
+        
+    });
+
+});
 
 
-        var checkGridSelection = "";
-        var selected = $("input[type=checkbox]:checked").map(function () {
+function DeleteDevices() {
+
+    var checkGridSelection = "";
+
+    function getCheckDevices() {
+
+        return $("input[type=checkbox]:checked").map(function () {
             checkGridSelection = "Selected";
             return $(this).val();
         }).get();
 
-        if (checkGridSelection === "Selected") {
-            var r = confirm("Выбранные вами записи будут удалены. Удалить записи?");
-            if (r === true) {
+    }
+
+    this.DeleteConfirmation = function () {
+        getCheckDevices();
+        if (checkGridSelection === "Selected") $("#modaldeleteconfirm").modal();
+    }
+
+    this.InitYes = $(".button-yes").live("click",
+        function (event) {
+
+            var selected = getCheckDevices();
+
+            if (checkGridSelection === "Selected") {
                 var selectedIds = selected.join(';');
                 var ref = document.location;
                 $.ajax({
@@ -40,18 +64,22 @@ $(document).ready(function () {
                     data: { selectedIds: selectedIds },
                     dataType: 'json',
                     success: function (data) {
-                        if (data === true)
+                        if (data === true) {
                             document.location = ref;
-                        else
+
+                        } else {
+                            $.modal.close();
                             alert("Произошла ошибка во время удаления записей");
+                        }
                     }
                 });
             }
-        }
-       
-    });
+        });
 
-});
+    this.InitNo = $(".button-no").live("click",
+        function (event) {
+            $.modal.close();
+        });
 
-
+}
 

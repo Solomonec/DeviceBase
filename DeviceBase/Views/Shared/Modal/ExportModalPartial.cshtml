@@ -14,7 +14,13 @@
           <div class="export-modal-inputblock">
               <div class="export-modal-label">Тип</div>
               <div class="export-modal-context-select">
-                 @Html.DropDownList("devicetype", new SelectList(new[] { "" }), new{id="devicetypelist"});
+                  @Html.DropDownList("devicetype", new SelectList(new[] { "" }), "Выберите тип...", new{id="devicetypelist"});
+              </div>
+          </div>
+          <div class="export-modal-inputblock">
+              <div class="export-modal-label">Площадка</div>
+              <div class="export-modal-context-select">
+                  @Html.DropDownList("location", new SelectList(new[] { "" }), "Выберите площадку...", new{id="locationlist"});
               </div>
           </div>
           <div style="clear: both"></div>

@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -323,6 +324,7 @@
     <Content Include="Content\Img\Main\search.png" />
     <Content Include="Content\Img\Modal\arrow_tip.png" />
     <Content Include="Content\Img\Modal\background.png" />
+    <Content Include="Content\Img\Modal\question.png" />
     <Content Include="Content\Img\UserManage\background.jpg" />
     <Content Include="Content\Img\UserManage\Buttons.jpg" />
     <Content Include="Content\Img\UserManage\Buttons.png" />
@@ -338,6 +340,7 @@
     <Content Include="Content\LoginStyle.css" />
     <Content Include="Content\MainStyle.css" />
     <Content Include="Content\Modal\DeviceType.css" />
+    <Content Include="Content\Modal\DeleteConfirm.css" />
     <Content Include="Content\Modal\Location.css" />
     <Content Include="Content\Modal\DeviceClass.css" />
     <Content Include="Content\Modal\Export.css" />
@@ -428,6 +431,7 @@
     <Content Include="Views\Home\DisplayTemplates\MetroPager.cshtml" />
     <Content Include="Views\Shared\Modal\ExportModalPartial.cshtml" />
     <Content Include="Views\Statistics\Devices.cshtml" />
+    <Content Include="Views\Shared\Modal\ConfirmationDeleteModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

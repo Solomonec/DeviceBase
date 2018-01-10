@@ -41,18 +41,14 @@ namespace DeviceBase.Controllers
             UserProfile profile = _deviceBaseService.UserRepository.GetUserByName(model.UserName);
             if (profile != null)
             {
-                if (profile.Active)
-                {
                     if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
                     {
                         return RedirectToAction("ItDevices", "Home");
                     }
-                    ModelState.AddModelError("", "Имя пользователя или пароль указаны неверно.");
-                }
-                return PartialView("Error");
+                // Появление этого сообщения означает наличие ошибки; повторное отображение формы
+                ModelState.AddModelError("", "Имя пользователя или пароль указаны неверно");
             }
-            // Появление этого сообщения означает наличие ошибки; повторное отображение формы
-            ModelState.AddModelError("", "Имя пользователя или пароль указаны неверно.");
+         
             return View(model);
         }
 

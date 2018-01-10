@@ -8,7 +8,7 @@
             cache: true,
             url: "/DeviceTypes/GetDeviceTypesClasses",
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
 
                 if (data !== null) {
                     var results = "<option value=\"\">Выбирите класс...</option>";
@@ -19,7 +19,28 @@
                     }
                     $("#deviceclasslist").append(results);
                 }
-            }
+            },
+            complete: function () {
+                $("#locationlist").empty();
+                $.ajax({
+                    type: 'Post',
+                    cache: false,
+                    url: '/Locations/GetLocations',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        if (data !== null) {
+                            var results = "<option value=\"\">Выбирите площадку...</option>";
+                            for (var i = 0; i < data.length; i++) {
+
+                                results += "<option value=\"" + data[i].LocationName + "\">" + data[i].LocationName + "</option>";
+
+                            }
+                            $("#locationlist").append(results);
+                        }
+                    }
+                });
+        }
         });
         $("#modalexport").modal();
 
@@ -50,5 +71,9 @@
         });
     });
 
+    $(".button-cancel").click(function() {
+
+        $.modal.close();
+    });
 
 });
